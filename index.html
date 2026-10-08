@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>КРАЙ — Україна на смак | Крафтова кондитерська, Львів</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+ html{scroll-padding-top:90px}
+ body{background:#FAF8F5;color:#22201D;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+ h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
+ /* Орнаментальний розділювач (прозорість ~8%) */
+ .orn{height:28px;opacity:.08;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28'%3E%3Cpath d='M28 3l10 11-10 11-10-11z' fill='none' stroke='%23263D2F' stroke-width='2'/%3E%3Cpath d='M28 9l4 5-4 5-4-5z' fill='%23C88A42'/%3E%3Cpath d='M0 14h14M42 14h14' stroke='%23263D2F' stroke-width='2' stroke-dasharray='3 3'/%3E%3C/svg%3E") repeat-x center}
+ .opt{border:2px solid #e8e2d8;background:#fff;transition:all .3s}
+ .opt:hover{border-color:#7D9B76}
+ .opt.sel{border-color:#263D2F;background:#7D9B76/10;box-shadow:0 0 0 3px #7D9B7633}
+</style>
+</head>
+<body>
+
+<!-- ===== ШАПКА ===== -->
+<header class="sticky top-0 z-40 bg-[#FAF8F5]/90 backdrop-blur border-b border-[#7D9B76]/20">
+ <div class="max-w-6xl mx-auto px-4 h-20 flex items-center gap-4">
+  <a href="#top" class="flex items-center gap-2 mr-auto">
+   <!-- ЛОГО: покладіть файл у images/logo.png -->
+   <img src="images/logo.jpg" alt="КРАЙ — Україна на смак" class="h-16 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x48/263D2F/FAF8F5?text=КРАЙ'">
+   <span class="hidden sm:block font-serif font-bold text-[#263D2F] tracking-widest">Україна на смак</span>
+  </a>
+  <nav class="hidden md:flex gap-6 text-sm font-semibold text-[#263D2F]">
+   <a class="hover:text-[#C88A42] transition-all duration-300" href="#about">Про нас</a>
+   <a class="hover:text-[#C88A42] transition-all duration-300" href="#macarons">Макарунси</a>
+   <a class="hover:text-[#C88A42] transition-all duration-300" href="#builder">Конструктор</a>
+   <a class="hover:text-[#C88A42] transition-all duration-300" href="#plyatsky">Пляцки</a>
+   <a class="hover:text-[#C88A42] transition-all duration-300" href="#contacts">Контакти</a>
+  </nav>
+  <button id="openCart" aria-label="Кошик" class="relative w-12 h-12 rounded-full bg-[#263D2F] text-white flex items-center justify-center hover:bg-[#5B7055] transition-all duration-300 shadow-md">
+   <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
+   <span id="badge" class="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-[#C88A42] text-xs font-bold flex items-center justify-center">0</span>
+  </button>
+ </div>
+ <!-- Мобільне меню -->
+ <nav class="md:hidden flex gap-4 overflow-x-auto px-4 pb-3 text-sm font-semibold text-[#263D2F] whitespace-nowrap">
+  <a href="#about">Про нас</a><a href="#macarons">Макарунси</a><a href="#builder">Конструктор</a><a href="#plyatsky">Пляцки</a><a href="#contacts">Контакти</a>
+ </nav>
+</header>
+
+<main id="top">
+<!-- ===== HERO ===== -->
+<section class="max-w-6xl mx-auto px-4 py-12 md:py-20 grid md:grid-cols-2 gap-10 items-center">
+ <div>
+  <p class="text-[#C88A42] font-bold tracking-widest text-sm mb-3">КРАФТОВА КОНДИТЕРСЬКА · ЛЬВІВ</p>
+  <h1 class="text-4xl md:text-5xl font-bold leading-tight text-[#263D2F]">Україна на смак у кожному десерті</h1>
+  <p class="mt-5 text-lg text-[#22201D]/75">Ми свіжо переосмислюємо локальні гастрономічні традиції: від подільського яблука до карпатського чаю — у форматі сучасного крафту.</p>
+  <div class="mt-8 flex flex-wrap gap-3">
+   <a href="#macarons" class="px-7 py-3 rounded-full bg-[#263D2F] text-white font-semibold hover:bg-[#5B7055] shadow-md transition-all duration-300">Відкрити меню</a>
+   <a href="#builder" class="px-7 py-3 rounded-full border-2 border-[#C88A42] text-[#C88A42] font-semibold hover:bg-[#C88A42] hover:text-white transition-all duration-300">Скласти свій торт</a>
+  </div>
+ </div>
+ <!-- ФОТО: images/hero.jpg -->
+ <img src="images/hero.jpg" alt="Регіональний сет макарунсів" class="w-full aspect-[4/5] md:aspect-square object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/800x800/7D9B76/FAF8F5?text=Hero'">
+</section>
+<div class="orn"></div>
+
+<!-- ===== ПРО НАС ===== -->
+<section id="about" class="max-w-6xl mx-auto px-4 py-16">
+ <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] max-w-3xl">Ми не просто печемо — ми відкриваємо смакову географію України</h2>
+ <p class="mt-5 max-w-3xl text-lg text-[#22201D]/75">Цех і вітрина в нас — в одному приміщенні: ви чуєте аромат свіжого бісквіту й карамелі та на власні очі бачите, як відсаджуються десерти.</p>
+ <div class="mt-10 grid md:grid-cols-3 gap-6">
+  <div class="p-6 rounded-3xl bg-white shadow-sm"><h3 class="text-xl font-bold text-[#5B7055]">25 областей — 25 історій</h3><p class="mt-2 text-[#22201D]/75">Справжня гастрономічна подорож від шацьких ягід до шахтарської солі.</p></div>
+  <div class="p-6 rounded-3xl bg-white shadow-sm"><h3 class="text-xl font-bold text-[#5B7055]">Чесний крафт</h3><p class="mt-2 text-[#22201D]/75">Жодних штучних ароматизаторів, маргарину чи сухих сумішей — тільки справжній мигдаль, вершки 33%, локальні ягоди та трави.</p></div>
+  <div class="p-6 rounded-3xl bg-white shadow-sm"><h3 class="text-xl font-bold text-[#5B7055]">Свіжість нульового кілометра</h3><p class="mt-2 text-[#22201D]/75">Усе випікається щоранку прямо тут, на Братів Рогатинців, 11.</p></div>
+ </div>
+ <!-- ФОТО: images/about-kitchen.jpg -->
+ <img src="images/about-kitchen.jpg" alt="Відкрита кухня КРАЙ" class="mt-10 w-full h-64 md:h-96 object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/1200x500/E9E2D4/263D2F?text=Open+kitchen'">
+</section>
+<div class="orn"></div>
+
+<!-- ===== МАКАРУНСИ ===== -->
+<section id="macarons" class="max-w-6xl mx-auto px-4 py-16">
+ <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] text-center">25 регіональних макарунсів</h2>
+ <p class="text-center mt-2 text-[#22201D]/70">Кожен — смак окремої області. 60 грн за штуку.</p>
+ <div id="macGrid" class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
+<div class="orn"></div>
+
+<!-- ===== КОНСТРУКТОР ===== -->
+<section id="builder" class="max-w-6xl mx-auto px-4 py-16">
+ <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] text-center">Конструктор торта</h2>
+ <p class="text-center mt-2 text-[#22201D]/70">Базова ціна — 800 грн/кг</p>
+ <div class="mt-10 grid lg:grid-cols-5 gap-8">
+  <div class="lg:col-span-2">
+   <!-- ФОТО: images/cake-builder.jpg -->
+   <img src="images/cake-builder.jpg" alt="Торт на замовлення" class="w-full aspect-square object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/700x700/7D9B76/FAF8F5?text=Cake'">
+  </div>
+  <div class="lg:col-span-3 space-y-6">
+   <div><h3 class="font-bold text-lg mb-3">Крок 1. Основа</h3><div id="b1" class="grid grid-cols-2 gap-3"></div></div>
+   <div><h3 class="font-bold text-lg mb-3">Крок 2. Крем</h3><div id="b2" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div></div>
+   <div><h3 class="font-bold text-lg mb-3">Крок 3. Начинка</h3><div id="b3" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div></div>
+   <div class="p-5 rounded-3xl bg-[#263D2F] text-white">
+    <p class="text-sm opacity-70">Ваш вибір</p>
+    <p id="summary" class="font-semibold mt-1"></p>
+    <div class="mt-4 flex flex-wrap items-center gap-4 justify-between">
+     <span class="text-2xl font-bold">800 грн/кг</span>
+     <button id="addCake" class="px-6 py-3 rounded-full bg-[#C88A42] font-semibold hover:brightness-110 transition-all duration-300">Додати зібраний торт у кошик</button>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+<div class="orn"></div>
+
+<!-- ===== ПЛЯЦКИ ===== -->
+<section id="plyatsky" class="max-w-6xl mx-auto px-4 py-16">
+ <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] text-center">Фірмові торти та галицькі пляцки</h2>
+ <div id="desGrid" class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
+</main>
+
+<!-- ===== ФУТЕР ===== -->
+<footer id="contacts" class="bg-[#263D2F] text-white mt-10">
+ <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
+  <div><h3 class="text-2xl font-bold">КРАЙ</h3><p class="opacity-75 mt-2">Україна на смак</p></div>
+  <div class="space-y-2">
+   <h3 class="font-bold text-lg">Контакти</h3>
+   <!-- ПОСИЛАННЯ НА КАРТУ: за потреби замініть на точне посилання Google Maps -->
+   <p><a class="underline hover:text-[#C88A42]" href="https://www.google.com/maps/search/?api=1&query=Львів+вулиця+Братів+Рогатинців+11" target="_blank" rel="noopener noreferrer">м. Львів, Площа Ринок, вул. Братів Рогатинців, 11</a></p>
+   <p>Щодня з 09:00 до 21:00</p>
+   <!-- ТЕЛЕФОН: підставте номер у href та текст -->
+   <p><a class="hover:text-[#C88A42]" href="tel:+380000000000">+380 (00) 000-00-00</a></p>
+   <!-- ПОШТА: підставте адресу -->
+   <p><a class="hover:text-[#C88A42]" href="mailto:hello@kray.example">hello@kray.example</a></p>
+  </div>
+  <p class="opacity-60 text-sm md:text-right">© КРАЙ, Львів</p>
+ </div>
+</footer>
+
+<!-- ===== ПЛАВАЮЧІ СОЦМЕРЕЖІ ===== -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+ <!-- TikTok: підставте посилання на акаунт -->
+ <a href="https://www.tiktok.com/@your_account" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="w-12 h-12 bg-white text-[#263D2F] shadow-lg hover:shadow-xl hover:scale-110 rounded-full flex items-center justify-center transition-all border border-[#7D9B76]/20">
+  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12.5.02h3.4c.1 1.5.6 3 1.7 4.1 1.1 1.1 2.7 1.7 4.3 1.8v4c-1.4 0-2.9-.4-4.2-1v8.7c0 4.8-4.700 7.800-8.900 6.400-3.600-1.200-5.500-5-4.300-8.600 1.100-3.200 4.300-5 7.600-4.400v4.100c-1-.3-2.200-.2-3 .4-1.700 1.300-1.300 4 .6 4.800 1.900.8 3.900-.6 3.900-2.700L12.500.02z"/></svg>
+ </a>
+ <!-- Instagram: підставте посилання на акаунт -->
+ <a href="https://www.instagram.com/your_account" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-12 h-12 bg-white text-[#263D2F] shadow-lg hover:shadow-xl hover:scale-110 rounded-full flex items-center justify-center transition-all border border-[#7D9B76]/20">
+  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+ </a>
+</div>
+
+<!-- ===== КОШИК (DRAWER) ===== -->
+<div id="ov" class="fixed inset-0 bg-black/40 z-50 opacity-0 pointer-events-none transition-all duration-300"></div>
+<aside id="drawer" class="fixed top-0 right-0 bottom-0 w-full sm:w-[420px] bg-[#FAF8F5] z-[60] translate-x-full transition-all duration-300 flex flex-col shadow-xl">
+ <div class="p-5 flex justify-between items-center border-b border-[#7D9B76]/20">
+  <h3 class="text-xl font-bold text-[#263D2F]">Ваш кошик</h3>
+  <button id="closeCart" class="text-3xl leading-none" aria-label="Закрити">×</button>
+ </div>
+ <div id="cartItems" class="flex-1 overflow-y-auto p-5 space-y-4"></div>
+ <div class="p-5 border-t border-[#7D9B76]/20">
+  <div class="flex justify-between font-bold text-lg mb-3"><span>Разом</span><span id="total">0 грн</span></div>
+  <form id="orderForm" class="space-y-2">
+   <input required name="n" placeholder="Ім'я" class="w-full p-3 rounded-2xl border border-[#7D9B76]/40 bg-white">
+   <input required name="p" type="tel" placeholder="Контактний телефон" class="w-full p-3 rounded-2xl border border-[#7D9B76]/40 bg-white">
+   <input required name="d" type="datetime-local" aria-label="Дата та час візиту" class="w-full p-3 rounded-2xl border border-[#7D9B76]/40 bg-white">
+   <p class="text-sm text-[#5B7055]">Замовлення буде чекати на вас упакованим без черг.</p>
+   <button class="w-full py-3 rounded-full bg-[#263D2F] text-white font-semibold hover:bg-[#5B7055] transition-all duration-300">Оформити самовивіз</button>
+  </form>
+ </div>
+</aside>
+
+<!-- ===== МОДАЛЬНЕ ВІКНО ПІДТВЕРДЖЕННЯ ===== -->
+<div id="modal" class="hidden fixed inset-0 z-[70] bg-black/50 items-center justify-center p-4">
+ <div class="bg-white rounded-3xl p-8 max-w-sm text-center shadow-xl">
+  <h3 class="text-2xl font-bold text-[#263D2F]">Дякуємо! 🌾</h3>
+  <p class="mt-2 text-[#22201D]/75">Ваше замовлення прийнято. Чекаємо на вас у «КРАЇ».</p>
+  <button id="closeModal" class="mt-5 px-6 py-2 rounded-full bg-[#C88A42] text-white font-semibold">Гаразд</button>
+ </div>
+</div>
+
+<script>
+/* ===== ДАНІ =====
+   Макарунси: [файл-slug, регіон, назва, склад]. Фото: images/macarons/<slug>.jpg */
+const MAC=[
+["vinnytsia","Вінницька","Подільське яблуко","Карамельно-золотистий корж з корицею; печене яблуко з ванільним кремом"],
+["volyn","Волинська","Шацька чорниця","Фіолетовий корж; крем маскарпоне з лохиною"],
+["dnipro","Дніпропетровська","Петриківка","Жовтий корж із розписом; соняшникова паста з карамеллю"],
+["donetsk","Донецька","Шахтарська сіль","Чорний корж на вугіллі; гіркий шоколад із солоною карамеллю"],
+["zhytomyr","Житомирська","Поліський льон","Світло-бежевий корж із насінням льону; груша з медом"],
+["zakarpattia","Закарпатська","Лекварь","Темно-сливовий корж; сливове повидло з корицею і краплею рому"],
+["zaporizhzhia","Запорізька","Мелітопольська черешня","Червоний корж; черешня з мигдальним кремом"],
+["frankivsk","Івано-Франківська","Карпатський чай","Зелено-бурий корж; чабрець і гірський мед"],
+["kyiv","Київська","Київський торт","Бежевий фундучний корж; праліне з вершковим кремом"],
+["kirovohrad","Кіровоградська","Степовий колосок","Золотистий корж із зерновою крихтою; гречане праліне з карамеллю"],
+["luhansk","Луганська","Крейдяний степ","Білий корж; лимонний курд із ваніллю"],
+["lviv","Львівська","Львівська кава","Кавовий корж; ганаш із шоколаду та кави з корицею"],
+["mykolaiv","Миколаївська","Південне сонце","Оранжевий корж; абрикос із розмарином"],
+["odesa","Одеська","Привоз","Персиковий корж; персик і маракуя з шампанським"],
+["poltava","Полтавська","Вареники з вишнею","Червоно-білий корж; вишня з вершково-сметанковим кремом"],
+["rivne","Рівненська","Бурштин","Прозоро-медовий корж; обліпиха з медом"],
+["sumy","Сумська","Солодка Слобожанщина","Кремовий корж; крем-брюле з ваніллю"],
+["ternopil","Тернопільська","Терен","Синьо-фіолетовий корж; терен із білим шоколадом"],
+["kharkiv","Харківська","Слобожанський мак","Сірувато-синій корж із маком; мак із лимонним кремом"],
+["kherson","Херсонська","Херсонський кавун","Рожевий корж; кавун із лаймом"],
+["khmelnytskyi","Хмельницька","Медобори","Золотий корж; мед із волоським горіхом"],
+["cherkasy","Черкаська","Софіївська троянда","Ніжно-рожевий корж; троянда з малиною"],
+["chernivtsi","Чернівецька","Буковинський бануш","Кукурудзяно-жовтий корж; сметанковий крем із кукурудзою та чорницею"],
+["chernihiv","Чернігівська","Чернігівський пряник","Коричневий пряний корж; імбирний крем із карамеллю"],
+["krym","Крим","Лаванда і мускат","Ліловий корж; лаванда з мускатним виноградом"]
+];
+/* Фірмові: [id, назва, опис, ціна, фото] */
+const DES=[
+["medovyk","Класичний медовик","Ароматні медові коржі, просочені ніжним сметанним кремом, утворюють неймовірно м'яку та соковиту текстуру. Натуральний мед дарує теплий карамельний післясмак, а легка кислинка крему робить кожен шматочок особливо ніжним.",75,"images/medovyk.jpg"],
+["chervonybarhat","Червоний оксамит «Вишнева спокуса»","Ніжні оксамитові бісквіти з делікатними нотками какао, повітряний вершково-сирний крем із білим шоколадом, соковите вишневе конфі та витончений хрусткий прошарок із мигдалю. Гармонія ніжності, ягідної кислинки та шоколадної солодкості в кожному шматочку.",80,"images/chervonybarhat.jpg"],
+["syrnyk","Класичний львівський сирник","Справжня львівська класика з ніжною сирною текстурою та насиченою шоколадною глазур'ю. Золотиста скоринка, вершковий смак і тонкий аромат ванілі перетворюють кожен шматочок на особливу насолоду.",80,"images/syrnyk.jpg"],
+["makovianyk","Маков'яник","Щедра макова начинка, огорнута ніжним пісочно-дріжджовим тістом, створює насичений смак традиційної української випічки. Ароматний мак, делікатна солодкість і м'яка текстура дарують відчуття домашнього затишку в кожному шматочку.",70,"images/makovianyk.jpg"],
+["spartak","Спартак","Тонкі шоколадно-медові коржі, щедро просочені ніжним заварним сметанковим кремом. Насичені нотки какао, медова солодкість і легка сметанкова кислинка створюють ідеальний баланс смаку, перед яким важко встояти.",75,"images/spartak.jpg"]
+];
+const B={b1:["Ванільний бісквіт","Шоколадний","Фісташковий","Червоний оксамит"],
+ b2:["Класичний крем-чиз на вершках","Шоколадний ганаш","Йогуртовий крем"],
+ b3:["Солона карамель з арахісом (Снікерс)","Ягідне конфі","Манго-маракуя"]};
+
+const $=s=>document.querySelector(s);
+const ph=(t,c="7D9B76")=>`onerror="this.onerror=null;this.src='https://placehold.co/600x450/${c}/FAF8F5?text=${encodeURIComponent(t)}'"`;
+const esc=s=>s.replace(/"/g,"&quot;");
+let cart={}; // id -> {name, price, qty, img}
+
+/* ===== Макарунси ===== */
+$("#macGrid").innerHTML=MAC.map(m=>{const n=m[2],id="mac-"+m[0],img=`images/macarons/${m[0]}.jpg`;
+ return `<article class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
+ <!-- ФОТО: ${img} -->
+ <img src="${img}" alt="${n}" loading="lazy" class="w-full aspect-[4/3] object-cover" ${ph(n)}>
+ <div class="p-5 flex-1 flex flex-col gap-2">
+  <span class="self-start px-3 py-1 rounded-full bg-[#7D9B76]/20 text-[#263D2F] text-xs font-semibold">${m[1]}</span>
+  <h3 class="text-lg font-bold">«${n}»</h3>
+  <p class="text-sm text-[#22201D]/70 flex-1">${m[3]}</p>
+  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">60 грн</span>
+  <button data-add="${id}" data-name="${esc("Макарун «"+n+"»")}" data-price="60" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button></div>
+ </div></article>`}).join("");
+
+/* ===== Фірмові: «Іній» з опцією + пляцки ===== */
+const card=(img,name,desc,price,extra,btn)=>`<article class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
+ <!-- ФОТО: ${img} -->
+ <img src="${img}" alt="${name}" loading="lazy" class="w-full aspect-[4/3] object-cover" ${ph(name,"C88A42")}>
+ <div class="p-5 flex-1 flex flex-col gap-2"><h3 class="text-lg font-bold">${name}</h3>
+ <p class="text-sm text-[#22201D]/70 flex-1">${desc}</p>${extra}
+ <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${price}</span>${btn}</div></div></article>`;
+const addBtn=(id,name,price,img)=>`<button data-add="${id}" data-name="${esc(name)}" data-price="${price}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`;
+$("#desGrid").innerHTML=
+ card("images/iney.jpg","Торт «Іній» (Запоріжжя)","Ніжний ванільний бісквіт, повітряне хрустке безе та оксамитовий масляно-заварний крем створюють неповторну гармонію смаків. Кожен шматочок поєднує делікатну солодкість, вершкову ніжність і приємний хрускіт, що тане в роті.","850 грн/кг",
+  `<label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"> Додати шар кисло-солодкого черешневого конфі (+50 грн)</label>`,
+  `<button id="addIney" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`)
+ + DES.map(d=>card(d[4],d[1],d[2],d[3]+" грн","",addBtn("des-"+d[0],d[1],d[3],d[4]))).join("");
+$("#addIney").onclick=()=>{const c=$("#confit").checked;
+ add("iney"+(c?"-c":""),"Торт «Іній» 1 кг"+(c?" + черешневе конфі":""),c?900:850,"images/iney.jpg")};
+
+/* ===== Конструктор ===== */
+const sel={b1:0,b2:0,b3:0};
+function drawBuilder(){
+ for(const k in B)$("#"+k).innerHTML=B[k].map((t,i)=>`<button data-k="${k}" data-i="${i}" class="opt ${sel[k]==i?"sel":""} rounded-2xl p-3 text-sm font-semibold text-left">${t}</button>`).join("");
+ $("#summary").textContent=["b1","b2","b3"].map(k=>B[k][sel[k]]).join(" · ");
+}
+document.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){sel[o.dataset.k]=+o.dataset.i;drawBuilder()}
+ const a=e.target.closest("[data-add]");if(a)add(a.dataset.add,a.dataset.name,+a.dataset.price,a.dataset.img)});
+$("#addCake").onclick=()=>{const t=["b1","b2","b3"].map(k=>B[k][sel[k]]);
+ add("cake-"+t.join("|"),"Торт 1 кг: "+t.join(" / "),800,"images/cake-builder.jpg")};
+drawBuilder();
+
+/* ===== Кошик ===== */
+function add(id,name,price,img){cart[id]=cart[id]||{name,price,img,qty:0};cart[id].qty++;draw();openC(true)}
+function draw(){
+ let sum=0,cnt=0;const ks=Object.keys(cart);
+ $("#cartItems").innerHTML=ks.length?ks.map(id=>{const c=cart[id];sum+=c.price*c.qty;cnt+=c.qty;
+  return `<div class="flex gap-3 items-center bg-white rounded-2xl p-3 shadow-sm">
+  <img src="${c.img}" alt="" class="w-14 h-14 rounded-xl object-cover" ${ph("КРАЙ")}>
+  <div class="flex-1 text-sm"><p class="font-semibold">${c.name}</p><p class="text-[#C88A42] font-bold">${c.price*c.qty} грн</p></div>
+  <div class="flex items-center gap-2"><button data-q="-1" data-id="${esc(id)}" class="w-7 h-7 rounded-full border">−</button><span>${c.qty}</span><button data-q="1" data-id="${esc(id)}" class="w-7 h-7 rounded-full border">+</button></div>
+  <button data-del="${esc(id)}" class="text-red-600 text-lg" aria-label="Видалити">✕</button></div>`}).join("")
+  :'<p class="text-center text-[#22201D]/50 mt-10">Кошик порожній</p>';
+ $("#total").textContent=sum+" грн";$("#badge").textContent=cnt;
+}
+$("#cartItems").onclick=e=>{const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.del)delete cart[b.dataset.del];
+ else if(b.dataset.q){const c=cart[b.dataset.id];c.qty+=+b.dataset.q;if(c.qty<1)delete cart[b.dataset.id]}
+ draw()};
+function openC(v){$("#drawer").classList.toggle("translate-x-full",!v);$("#ov").classList.toggle("opacity-0",!v);$("#ov").classList.toggle("pointer-events-none",!v)}
+$("#openCart").onclick=()=>openC(true);$("#closeCart").onclick=$("#ov").onclick=()=>openC(false);
+$("#orderForm").onsubmit=e=>{e.preventDefault();
+ if(!Object.keys(cart).length){alert("Додайте щось у кошик 🙂");return}
+ /* TODO: тут можна відправити замовлення на ваш сервер / у Telegram / email-сервіс */
+ cart={};draw();openC(false);e.target.reset();$("#modal").classList.replace("hidden","flex")};
+$("#closeModal").onclick=()=>$("#modal").classList.replace("flex","hidden");
+draw();
+</script>
+</body>
+</html>
