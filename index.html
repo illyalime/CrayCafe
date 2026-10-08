@@ -9,11 +9,19 @@
  html{scroll-padding-top:90px}
  body{background:#FAF8F5;color:#22201D;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
  h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
- /* Орнаментальний розділювач (прозорість ~8%) */
+/* Орнаментальний розділювач (прозорість ~8%) */
  .orn{height:28px;opacity:.08;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='28'%3E%3Cpath d='M28 3l10 11-10 11-10-11z' fill='none' stroke='%23263D2F' stroke-width='2'/%3E%3Cpath d='M28 9l4 5-4 5-4-5z' fill='%23C88A42'/%3E%3Cpath d='M0 14h14M42 14h14' stroke='%23263D2F' stroke-width='2' stroke-dasharray='3 3'/%3E%3C/svg%3E") repeat-x center}
  .opt{border:2px solid #e8e2d8;background:#fff;transition:all .3s}
  .opt:hover{border-color:#7D9B76}
  .opt.sel{border-color:#263D2F;background:#7D9B76/10;box-shadow:0 0 0 3px #7D9B7633}
+/* ===== Біжуча стрічка відгуків ===== */
+.marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.marquee-track{display:flex;width:max-content;animation:marquee 40s linear infinite}
+/* пауза при наведенні (ПК) або після тапу (телефон, клас .paused) */
+.marquee:hover .marquee-track,.marquee-track.paused{animation-play-state:paused}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* для тих, хто вимкнув анімації в системі, стрічка гортається вручну */
+@media (prefers-reduced-motion:reduce){.marquee{overflow-x:auto}.marquee-track{animation:none}}
 </style>
 </head>
 <body>
@@ -116,6 +124,36 @@
 </section>
 </main>
 
+<!-- ===== ВІДГУКИ ===== -->
+<section id="reviews" class="bg-[#F1F5F2] py-16 overflow-hidden">
+ <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 mb-10">
+  <div>
+   <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F]">Враження гостей</h2>
+   <p class="mt-2 text-[#22201D]/70">Що кажуть ті, хто вже спробував Україну на смак</p>
+  </div>
+  <button id="openReview" class="bg-[#263D2F] hover:bg-[#7D9B76] text-white rounded-full px-6 py-2.5 font-semibold transition-all duration-300">Залишити відгук</button>
+ </div>
+ <div class="marquee" title="Наведіть курсор або торкніться, щоб зупинити"><div id="rvTrack" class="marquee-track"></div></div>
+</section>
+
+<!-- ===== МОДАЛЬНЕ ВІКНО ФОРМИ ВІДГУКУ ===== -->
+<div id="rvModal" class="hidden fixed inset-0 z-[70] bg-black/50 items-center justify-center p-4">
+ <form id="rvForm" novalidate class="bg-white rounded-3xl p-6 w-full max-w-md shadow-xl space-y-4">
+  <div class="flex justify-between items-center">
+   <h3 class="text-xl font-bold text-[#263D2F]">Ваш відгук</h3>
+   <button type="button" id="rvClose" class="text-3xl leading-none" aria-label="Закрити">×</button>
+  </div>
+  <input id="rvName" maxlength="40" placeholder="Ваше ім'я" class="w-full p-3 rounded-2xl border border-[#7D9B76]/40">
+  <div>
+   <p class="text-sm text-[#22201D]/70 mb-1">Ваша оцінка</p>
+   <div id="rvStars" class="flex gap-1 text-3xl"></div>
+  </div>
+  <textarea id="rvText" rows="4" maxlength="400" placeholder="Який десерт спробували та як ваші враження?" class="w-full p-3 rounded-2xl border border-[#7D9B76]/40"></textarea>
+  <p id="rvErr" class="hidden text-sm text-red-600"></p>
+  <button class="w-full py-3 rounded-full bg-[#263D2F] hover:bg-[#7D9B76] text-white font-semibold transition-all duration-300">Опублікувати відгук</button>
+ </form>
+</div>
+ 
 <!-- ===== ФУТЕР ===== -->
 <footer id="contacts" class="bg-[#263D2F] text-white mt-10">
  <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
@@ -288,6 +326,73 @@ $("#orderForm").onsubmit=e=>{e.preventDefault();
  cart={};draw();openC(false);e.target.reset();$("#modal").classList.replace("hidden","flex")};
 $("#closeModal").onclick=()=>$("#modal").classList.replace("flex","hidden");
 draw();
+/* ===== ВІДГУКИ ===== */
+const RV_KEY="kray_reviews";
+/* Початкові відгуки (lbl — підпис дати). Редагуйте за потреби */
+const RV_SEED=[
+ {n:"Соломія",d:"Спробувала макарун «Шацька чорниця»",r:5,lbl:"Вчора",t:"Заходили на каву й залишились на годину: так круто бачити, як відсаджують макаруни просто перед тобою. Чорниця з маскарпоне — окрема любов."},
+ {n:"Андрій",d:"Замовляв торт «Іній»",r:5,lbl:"2 дні тому",t:"Безе хрустить, крем ніжний, не нудотний. Додав черешневе конфі — рекомендую. Забрав без черги, усе вже було запаковано."},
+ {n:"Марта",d:"Перевірений гість",r:5,lbl:"3 дні тому",t:"Атмосфера як вдома, але з сучасним смаком. Львівська кава в макаруні — ідеальна пара до фільтр-кави."},
+ {n:"Остап",d:"Спробував макарун «Лекварь»",r:4,lbl:"5 днів тому",t:"Слива з корицею та крапля рому — дуже по-закарпатськи. Хотілося б більший вибір безлактозних десертів."},
+ {n:"Іванна",d:"Зібрала торт у конструкторі",r:5,lbl:"Тиждень тому",t:"Фісташковий корж, йогуртовий крем і манго-маракуя. Вийшло свіжо й не важко, друзі просили рецепт."}
+];
+const rvTrack=$("#rvTrack"), rvModal=$("#rvModal"); let rvRating=5;
+
+const h=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function rvLoad(){try{return JSON.parse(localStorage.getItem(RV_KEY))||[]}catch(e){return[]}}
+function rvSave(a){try{localStorage.setItem(RV_KEY,JSON.stringify(a))}catch(e){}}
+function ago(ts){const m=Math.floor((Date.now()-ts)/6e4);if(m<1)return"Щойно";if(m<60)return m+" хв тому";
+ const hr=Math.floor(m/60);if(hr<24)return hr+" год тому";const d=Math.floor(hr/24);return d==1?"Вчора":d+" дн. тому"}
+const stars=n=>"★".repeat(n)+"☆".repeat(5-n);
+
+function rvCard(r){return `<article class="shrink-0 w-72 sm:w-80 mr-4 bg-white rounded-2xl shadow-sm border border-[#7D9B76]/15 p-5 flex flex-col gap-2">
+ <div><p class="font-bold text-[#263D2F]">${h(r.n)}</p><p class="text-xs text-[#5B7055]">${h(r.d||"Перевірений гість")}</p></div>
+ <p class="text-[#C88A42] text-lg tracking-wider" aria-label="Оцінка ${r.r} з 5">${stars(r.r)}</p>
+ <p class="text-sm text-[#22201D]/80 flex-1">${h(r.t)}</p>
+ <p class="text-xs text-[#22201D]/50">${r.ts?ago(r.ts):h(r.lbl)}</p></article>`}
+
+/* Рендер: нові відгуки зверху, потім початкові; HTML дублюється для безшовного циклу */
+function rvRender(){
+ const all=[...rvLoad().reverse(),...RV_SEED];
+ const html=all.map(rvCard).join("");
+ rvTrack.innerHTML=html+`<div class="contents" aria-hidden="true">${html}</div>`;
+ rvTrack.style.animationDuration=Math.max(30,all.length*8)+"s"; /* швидкість не залежить від кількості */
+}
+rvRender();
+/* Тап на телефоні ставить стрічку на паузу / знімає її */
+rvTrack.addEventListener("click",()=>rvTrack.classList.toggle("paused"));
+
+/* ----- Зірковий рейтинг ----- */
+const starBox=$("#rvStars");
+starBox.innerHTML=[1,2,3,4,5].map(i=>`<button type="button" data-v="${i}" aria-label="${i} з 5" class="transition-all duration-300">★</button>`).join("");
+function paint(v){starBox.querySelectorAll("button").forEach(b=>b.style.color=+b.dataset.v<=v?"#C88A42":"#D9D4CA")}
+starBox.addEventListener("mouseover",e=>{const b=e.target.closest("button");if(b)paint(+b.dataset.v)});
+starBox.addEventListener("mouseleave",()=>paint(rvRating));
+starBox.addEventListener("click",e=>{const b=e.target.closest("button");if(b){rvRating=+b.dataset.v;paint(rvRating)}});
+
+/* ----- Модальне вікно ----- */
+const rvOpen=v=>{rvModal.classList.toggle("hidden",!v);rvModal.classList.toggle("flex",v);if(v){rvRating=5;paint(5);$("#rvErr").classList.add("hidden")}};
+$("#openReview").onclick=()=>rvOpen(true);
+$("#rvClose").onclick=()=>rvOpen(false);
+rvModal.addEventListener("click",e=>{if(e.target===rvModal)rvOpen(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")rvOpen(false)});
+
+/* ----- Toast ----- */
+function toast(msg){const t=document.createElement("div");
+ t.className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[80] bg-[#263D2F] text-white px-6 py-3 rounded-full shadow-lg text-sm transition-all duration-300 opacity-0";
+ t.textContent=msg;document.body.appendChild(t);
+ requestAnimationFrame(()=>t.classList.remove("opacity-0"));
+ setTimeout(()=>{t.classList.add("opacity-0");setTimeout(()=>t.remove(),300)},3500)}
+
+/* ----- Відправка з валідацією ----- */
+$("#rvForm").onsubmit=e=>{e.preventDefault();
+ const n=$("#rvName").value.trim(), t=$("#rvText").value.trim(), err=$("#rvErr");
+ if(!n||!t){err.textContent=!n?"Вкажіть, будь ласка, ваше ім'я.":"Напишіть кілька слів про ваші враження.";err.classList.remove("hidden");return}
+ const list=rvLoad();list.push({n,t,r:rvRating,d:"Перевірений гість",ts:Date.now()});
+ rvSave(list);rvRender();
+ e.target.reset();rvOpen(false);
+ document.getElementById("reviews").scrollIntoView({behavior:"smooth"});
+ toast("Дякуємо за ваш відгук! Він уже з'явився у стрічці")};
 </script>
 </body>
 </html>
