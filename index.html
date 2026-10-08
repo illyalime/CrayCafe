@@ -56,8 +56,8 @@
    <a href="#builder" class="px-7 py-3 rounded-full border-2 border-[#C88A42] text-[#C88A42] font-semibold hover:bg-[#C88A42] hover:text-white transition-all duration-300">Скласти свій торт</a>
   </div>
  </div>
- <!-- ФОТО: images/hero.jpg -->
- <img src="images/hero.jpg" alt="Регіональний сет макарунсів" class="w-full aspect-[4/5] md:aspect-square object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/800x800/7D9B76/FAF8F5?text=Hero'">
+ <!-- ФОТО: hero.jpg -->
+ <img src="hero.jpg" alt="Регіональний сет макарунсів" class="w-full aspect-[4/5] md:aspect-square object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/800x800/7D9B76/FAF8F5?text=Hero'">
 </section>
 <div class="orn"></div>
 
@@ -70,8 +70,8 @@
   <div class="p-6 rounded-3xl bg-white shadow-sm"><h3 class="text-xl font-bold text-[#5B7055]">Чесний крафт</h3><p class="mt-2 text-[#22201D]/75">Жодних штучних ароматизаторів, маргарину чи сухих сумішей — тільки справжній мигдаль, вершки 33%, локальні ягоди та трави.</p></div>
   <div class="p-6 rounded-3xl bg-white shadow-sm"><h3 class="text-xl font-bold text-[#5B7055]">Свіжість нульового кілометра</h3><p class="mt-2 text-[#22201D]/75">Усе випікається щоранку прямо тут, на Братів Рогатинців, 11.</p></div>
  </div>
- <!-- ФОТО: images/about-kitchen.jpg -->
- <img src="images/about-kitchen.jpg" alt="Відкрита кухня КРАЙ" class="mt-10 w-full h-64 md:h-96 object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/1200x500/E9E2D4/263D2F?text=Open+kitchen'">
+ <!-- ФОТО: about-kitchen.jpg -->
+ <img src="about-kitchen.jpg" alt="Відкрита кухня КРАЙ" class="mt-10 w-full h-64 md:h-96 object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/1200x500/E9E2D4/263D2F?text=Open+kitchen'">
 </section>
 <div class="orn"></div>
 
@@ -89,8 +89,8 @@
  <p class="text-center mt-2 text-[#22201D]/70">Базова ціна — 800 грн/кг</p>
  <div class="mt-10 grid lg:grid-cols-5 gap-8">
   <div class="lg:col-span-2">
-   <!-- ФОТО: images/cake-builder.jpg -->
-   <img src="images/cake-builder.jpg" alt="Торт на замовлення" class="w-full aspect-square object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/700x700/7D9B76/FAF8F5?text=Cake'">
+   <!-- ФОТО: cake-builder.jpg -->
+   <img src="cake-builder.jpg" alt="Торт на замовлення" class="w-full aspect-square object-cover rounded-3xl shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/700x700/7D9B76/FAF8F5?text=Cake'">
   </div>
   <div class="lg:col-span-3 space-y-6">
    <div><h3 class="font-bold text-lg mb-3">Крок 1. Основа</h3><div id="b1" class="grid grid-cols-2 gap-3"></div></div>
@@ -170,14 +170,14 @@
 <div id="modal" class="hidden fixed inset-0 z-[70] bg-black/50 items-center justify-center p-4">
  <div class="bg-white rounded-3xl p-8 max-w-sm text-center shadow-xl">
   <h3 class="text-2xl font-bold text-[#263D2F]">Дякуємо! 🌾</h3>
-  <p class="mt-2 text-[#22201D]/75">Ваше замовлення прийнято. Чекаємо на вас у «КРАЇ».</p>
+  <p class="mt-2 text-[#22201D]/75">Ваше замовлення прийнято. Чекаємо на вас у «КРАЙ».</p>
   <button id="closeModal" class="mt-5 px-6 py-2 rounded-full bg-[#C88A42] text-white font-semibold">Гаразд</button>
  </div>
 </div>
 
 <script>
 /* ===== ДАНІ =====
-   Макарунси: [файл-slug, регіон, назва, склад]. Фото: images/macarons/<slug>.jpg */
+   Макарунси: [файл-slug, регіон, назва, склад]. Фото: <slug>.jpg */
 const MAC=[
 ["vinnytsia","Вінницька","Подільське яблуко","Карамельно-золотистий корж з корицею; печене яблуко з ванільним кремом"],
 ["volyn","Волинська","Шацька чорниця","Фіолетовий корж; крем маскарпоне з лохиною"],
@@ -207,11 +207,11 @@ const MAC=[
 ];
 /* Фірмові: [id, назва, опис, ціна, фото] */
 const DES=[
-["medovyk","Класичний медовик","Ароматні медові коржі, просочені ніжним сметанним кремом, утворюють неймовірно м'яку та соковиту текстуру. Натуральний мед дарує теплий карамельний післясмак, а легка кислинка крему робить кожен шматочок особливо ніжним.",75,"images/medovyk.jpg"],
-["chervonybarhat","Червоний оксамит «Вишнева спокуса»","Ніжні оксамитові бісквіти з делікатними нотками какао, повітряний вершково-сирний крем із білим шоколадом, соковите вишневе конфі та витончений хрусткий прошарок із мигдалю. Гармонія ніжності, ягідної кислинки та шоколадної солодкості в кожному шматочку.",80,"images/chervonybarhat.jpg"],
-["syrnyk","Класичний львівський сирник","Справжня львівська класика з ніжною сирною текстурою та насиченою шоколадною глазур'ю. Золотиста скоринка, вершковий смак і тонкий аромат ванілі перетворюють кожен шматочок на особливу насолоду.",80,"images/syrnyk.jpg"],
-["makovianyk","Маков'яник","Щедра макова начинка, огорнута ніжним пісочно-дріжджовим тістом, створює насичений смак традиційної української випічки. Ароматний мак, делікатна солодкість і м'яка текстура дарують відчуття домашнього затишку в кожному шматочку.",70,"images/makovianyk.jpg"],
-["spartak","Спартак","Тонкі шоколадно-медові коржі, щедро просочені ніжним заварним сметанковим кремом. Насичені нотки какао, медова солодкість і легка сметанкова кислинка створюють ідеальний баланс смаку, перед яким важко встояти.",75,"images/spartak.jpg"]
+["medovyk","Класичний медовик","Ароматні медові коржі, просочені ніжним сметанним кремом, утворюють неймовірно м'яку та соковиту текстуру. Натуральний мед дарує теплий карамельний післясмак, а легка кислинка крему робить кожен шматочок особливо ніжним.",75,"medovyk.jpg"],
+["chervonybarhat","Червоний оксамит «Вишнева спокуса»","Ніжні оксамитові бісквіти з делікатними нотками какао, повітряний вершково-сирний крем із білим шоколадом, соковите вишневе конфі та витончений хрусткий прошарок із мигдалю. Гармонія ніжності, ягідної кислинки та шоколадної солодкості в кожному шматочку.",80,"chervonybarhat.jpg"],
+["syrnyk","Класичний львівський сирник","Справжня львівська класика з ніжною сирною текстурою та насиченою шоколадною глазур'ю. Золотиста скоринка, вершковий смак і тонкий аромат ванілі перетворюють кожен шматочок на особливу насолоду.",80,"syrnyk.jpg"],
+["makovianyk","Маков'яник","Щедра макова начинка, огорнута ніжним пісочно-дріжджовим тістом, створює насичений смак традиційної української випічки. Ароматний мак, делікатна солодкість і м'яка текстура дарують відчуття домашнього затишку в кожному шматочку.",70,"makovianyk.jpg"],
+["spartak","Спартак","Тонкі шоколадно-медові коржі, щедро просочені ніжним заварним сметанковим кремом. Насичені нотки какао, медова солодкість і легка сметанкова кислинка створюють ідеальний баланс смаку, перед яким важко встояти.",75,"spartak.jpg"]
 ];
 const B={b1:["Ванільний бісквіт","Шоколадний","Фісташковий","Червоний оксамит"],
  b2:["Класичний крем-чиз на вершках","Шоколадний ганаш","Йогуртовий крем"],
@@ -223,7 +223,7 @@ const esc=s=>s.replace(/"/g,"&quot;");
 let cart={}; // id -> {name, price, qty, img}
 
 /* ===== Макарунси ===== */
-$("#macGrid").innerHTML=MAC.map(m=>{const n=m[2],id="mac-"+m[0],img=`images/macarons/${m[0]}.jpg`;
+$("#macGrid").innerHTML=MAC.map(m=>{const n=m[2],id="mac-"+m[0],img=`${m[0]}.jpg`;
  return `<article class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
  <!-- ФОТО: ${img} -->
  <img src="${img}" alt="${n}" loading="lazy" class="w-full aspect-[4/3] object-cover" ${ph(n)}>
@@ -244,12 +244,12 @@ const card=(img,name,desc,price,extra,btn)=>`<article class="bg-white rounded-3x
  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${price}</span>${btn}</div></div></article>`;
 const addBtn=(id,name,price,img)=>`<button data-add="${id}" data-name="${esc(name)}" data-price="${price}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`;
 $("#desGrid").innerHTML=
- card("images/iney.jpg","Торт «Іній» (Запоріжжя)","Ніжний ванільний бісквіт, повітряне хрустке безе та оксамитовий масляно-заварний крем створюють неповторну гармонію смаків. Кожен шматочок поєднує делікатну солодкість, вершкову ніжність і приємний хрускіт, що тане в роті.","850 грн/кг",
-  `<label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"> Додати шар кисло-солодкого черешневого конфі (+50 грн)</label>`,
+ card("iney.jpg","Торт «Іній» (Запоріжжя)","Ніжний ванільний бісквіт, повітряне хрустке безе та оксамитовий масляно-заварний крем створюють неповторну гармонію смаків. Кожен шматочок поєднує делікатну солодкість, вершкову ніжність і приємний хрускіт, що тане в роті.","850 грн/кг",
+  `<label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"> Додати шар кисло-солодкого черешневого конфі (+100 грн)</label>`,
   `<button id="addIney" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`)
  + DES.map(d=>card(d[4],d[1],d[2],d[3]+" грн","",addBtn("des-"+d[0],d[1],d[3],d[4]))).join("");
 $("#addIney").onclick=()=>{const c=$("#confit").checked;
- add("iney"+(c?"-c":""),"Торт «Іній» 1 кг"+(c?" + черешневе конфі":""),c?900:850,"images/iney.jpg")};
+ add("iney"+(c?"-c":""),"Торт «Іній» 1 кг"+(c?" + черешневе конфі":""),c?900:850,"iney.jpg")};
 
 /* ===== Конструктор ===== */
 const sel={b1:0,b2:0,b3:0};
@@ -260,7 +260,7 @@ function drawBuilder(){
 document.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){sel[o.dataset.k]=+o.dataset.i;drawBuilder()}
  const a=e.target.closest("[data-add]");if(a)add(a.dataset.add,a.dataset.name,+a.dataset.price,a.dataset.img)});
 $("#addCake").onclick=()=>{const t=["b1","b2","b3"].map(k=>B[k][sel[k]]);
- add("cake-"+t.join("|"),"Торт 1 кг: "+t.join(" / "),800,"images/cake-builder.jpg")};
+ add("cake-"+t.join("|"),"Торт 1 кг: "+t.join(" / "),800,"cake-builder.jpg")};
 drawBuilder();
 
 /* ===== Кошик ===== */
