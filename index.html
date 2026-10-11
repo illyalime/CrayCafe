@@ -306,7 +306,19 @@ const PRICE={
 
 /* ===== Макарунси ===== */
 $("#macGrid").innerHTML=MAC.map(m=>{const n=m[2],id="mac-"+m[0],img=`${m[0]}.jpg`;
-/* ===== БОКС З УСІМА 25 МАКАРУНСАМИ ===== */
+
+ return `<article class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
+ <!-- ФОТО: ${img} -->
+ <img src="${img}" alt="${n}" loading="lazy" class="w-full aspect-[4/3] object-cover" ${ph(n)}>
+ <div class="p-5 flex-1 flex flex-col gap-2">
+  <span class="self-start px-3 py-1 rounded-full bg-[#7D9B76]/20 text-[#263D2F] text-xs font-semibold">${m[1]}</span>
+  <h3 class="text-lg font-bold">«${n}»</h3>
+  <p class="text-sm text-[#22201D]/70 flex-1">${m[3]}</p>
+  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${MAC_PRICE} грн</span>
+  <button data-add="${id}" data-name="${esc("Макарун «"+n+"»")}" data-price="${MAC_PRICE}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button></div>
+ </div></article>`}).join("");
+
+ /* ===== БОКС З УСІМА 25 МАКАРУНСАМИ ===== */
 const BOX={name:"Бокс «25 областей»",desc:"Усі 25 регіональних макарунсів в одній подарунковій коробці: від Вінницької до Криму.",img:"macaron-box.jpg",price:1975};
 
 $("#macGrid").insertAdjacentHTML("beforeend",`<article class="sm:col-span-2 lg:col-span-3 bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden grid md:grid-cols-2">
@@ -322,16 +334,6 @@ $("#macGrid").insertAdjacentHTML("beforeend",`<article class="sm:col-span-2 lg:c
  </div></article>`);
 
 $("#boxBuy").onclick=()=>add("macbox-25",BOX.name,BOX.price,BOX.img);
- return `<article class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
- <!-- ФОТО: ${img} -->
- <img src="${img}" alt="${n}" loading="lazy" class="w-full aspect-[4/3] object-cover" ${ph(n)}>
- <div class="p-5 flex-1 flex flex-col gap-2">
-  <span class="self-start px-3 py-1 rounded-full bg-[#7D9B76]/20 text-[#263D2F] text-xs font-semibold">${m[1]}</span>
-  <h3 class="text-lg font-bold">«${n}»</h3>
-  <p class="text-sm text-[#22201D]/70 flex-1">${m[3]}</p>
-  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${MAC_PRICE} грн</span>
-  <button data-add="${id}" data-name="${esc("Макарун «"+n+"»")}" data-price="${MAC_PRICE}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button></div>
- </div></article>`}).join("");
 
 /* ===== Фірмові: «Іній» з опцією + пляцки ===== */
 const card=(img,name,desc,price,extra,btn)=>`<article class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
