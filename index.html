@@ -214,6 +214,12 @@
 </div>
 
 <script>
+
+const $=s=>document.querySelector(s);
+const ph=(t,c="7D9B76")=>`onerror="this.onerror=null;this.src='https://placehold.co/600x450/${c}/FAF8F5?text=${encodeURIComponent(t)}'"`;
+const esc=s=>s.replace(/"/g,"&quot;");
+let cart={}; // id -> {name, price, qty, img}
+ 
 /* ===== ДАНІ =====
    Макарунси: [файл-slug, регіон, назва, склад]. Фото: <slug>.jpg */
 const MAC=[
@@ -297,11 +303,6 @@ const PRICE={
  iney:{kg:950, slice:120},              // торт «Іній»: 1 кг / шматочок 125 г
  confit:{kg:120, slice:25}              // доплата за черешневе конфі: до 1 кг / до шматочка
 };
- 
-const $=s=>document.querySelector(s);
-const ph=(t,c="7D9B76")=>`onerror="this.onerror=null;this.src='https://placehold.co/600x450/${c}/FAF8F5?text=${encodeURIComponent(t)}'"`;
-const esc=s=>s.replace(/"/g,"&quot;");
-let cart={}; // id -> {name, price, qty, img}
 
 /* ===== Макарунси ===== */
 $("#macGrid").innerHTML=MAC.map(m=>{const n=m[2],id="mac-"+m[0],img=`${m[0]}.jpg`;
