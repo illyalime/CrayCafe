@@ -94,7 +94,7 @@
 <!-- ===== КОНСТРУКТОР ===== -->
 <section id="builder" class="max-w-6xl mx-auto px-4 py-16">
  <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] text-center">Конструктор торта</h2>
- <p class="text-center mt-2 text-[#22201D]/70">Базова ціна — 800 грн/кг</p>
+ <p class="text-center mt-2 text-[#22201D]/70">Ціна залежить від обраних шарів</p>
  <div class="mt-10 grid lg:grid-cols-5 gap-8">
   <div class="lg:col-span-2">
    <!-- ФОТО: cake-builder.jpg -->
@@ -108,7 +108,10 @@
     <p class="text-sm opacity-70">Ваш вибір</p>
     <p id="summary" class="font-semibold mt-1"></p>
     <div class="mt-4 flex flex-wrap items-center gap-4 justify-between">
-     <span class="text-2xl font-bold">800 грн/кг</span>
+     <div class="mt-4 flex flex-wrap items-center gap-4 justify-between">
+ <span id="cakePrice" class="text-2xl font-bold"></span>
+ <button id="addCake" class="px-6 py-3 rounded-full bg-[#C88A42] font-semibold hover:brightness-110 transition-all duration-300">Додати зібраний торт у кошик</button>
+</div>
      <button id="addCake" class="px-6 py-3 rounded-full bg-[#C88A42] font-semibold hover:brightness-110 transition-all duration-300">Додати зібраний торт у кошик</button>
     </div>
    </div>
@@ -251,10 +254,16 @@ const DES=[
 ["makovianyk","Маков'яник","Щедра макова начинка, огорнута ніжним пісочно-дріжджовим тістом, створює насичений смак традиційної української випічки. Ароматний мак, делікатна солодкість і м'яка текстура дарують відчуття домашнього затишку в кожному шматочку.",70,"makovianyk.jpg"],
 ["spartak","Спартак","Тонкі шоколадно-медові коржі, щедро просочені ніжним заварним сметанковим кремом. Насичені нотки какао, медова солодкість і легка сметанкова кислинка створюють ідеальний баланс смаку, перед яким важко встояти.",75,"spartak.jpg"]
 ];
-const B={b1:["Ванільний бісквіт","Шоколадний","Фісташковий","Червоний оксамит"],
- b2:["Класичний крем-чиз на вершках","Шоколадний ганаш","Йогуртовий крем"],
- b3:["Солона карамель з арахісом (Снікерс)","Ягідне конфі","Манго-маракуя"]};
 
+
+ /* ===== ЦІНИ (змінюйте тут) ===== */
+const MAC_PRICE=70;                    // макарун, грн/шт
+const PRICE={
+ builder:{kg:800, slice:100},          // торт-конструктор: 1 кг / шматочок 100 г
+ iney:{kg:850, slice:90},              // торт «Іній»: 1 кг / шматочок 100 г
+ confit:{kg:50, slice:10}              // доплата за черешневе конфі: до 1 кг / до шматочка
+};
+ 
 const $=s=>document.querySelector(s);
 const ph=(t,c="7D9B76")=>`onerror="this.onerror=null;this.src='https://placehold.co/600x450/${c}/FAF8F5?text=${encodeURIComponent(t)}'"`;
 const esc=s=>s.replace(/"/g,"&quot;");
@@ -269,8 +278,8 @@ $("#macGrid").innerHTML=MAC.map(m=>{const n=m[2],id="mac-"+m[0],img=`${m[0]}.jpg
   <span class="self-start px-3 py-1 rounded-full bg-[#7D9B76]/20 text-[#263D2F] text-xs font-semibold">${m[1]}</span>
   <h3 class="text-lg font-bold">«${n}»</h3>
   <p class="text-sm text-[#22201D]/70 flex-1">${m[3]}</p>
-  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">60 грн</span>
-  <button data-add="${id}" data-name="${esc("Макарун «"+n+"»")}" data-price="60" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button></div>
+  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${MAC_PRICE} грн</span>
+  <button data-add="${id}" data-name="${esc("Макарун «"+n+"»")}" data-price="${MAC_PRICE}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button></div>
  </div></article>`}).join("");
 
 /* ===== Фірмові: «Іній» з опцією + пляцки ===== */
@@ -282,24 +291,42 @@ const card=(img,name,desc,price,extra,btn)=>`<article class="bg-white rounded-3x
  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${price}</span>${btn}</div></div></article>`;
 const addBtn=(id,name,price,img)=>`<button data-add="${id}" data-name="${esc(name)}" data-price="${price}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`;
 $("#desGrid").innerHTML=
- card("iney.jpg","Торт «Іній» (Запоріжжя)","Ніжний ванільний бісквіт, повітряне хрустке безе та оксамитовий масляно-заварний крем створюють неповторну гармонію смаків. Кожен шматочок поєднує делікатну солодкість, вершкову ніжність і приємний хрускіт, що тане в роті.","850 грн/кг",
-  `<label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"> Додати шар кисло-солодкого черешневого конфі (+100 грн)</label>`,
+ card("iney.jpg","Торт «Іній» (Запоріжжя)","Ніжний ванільний бісквіт, повітряне хрустке безе та оксамитовий масляно-заварний крем створюють неповторну гармонію смаків. Кожен шматочок поєднує делікатну солодкість, вершкову ніжність і приємний хрускіт, що тане в роті.",'<span id="ineyPrice"></span>',
+  `<select id="ineyW" class="text-sm p-2 rounded-xl border border-[#7D9B76]/40 bg-white"><option value="kg">1 кг</option><option value="slice">Шматочок 100 г</option></select>
+  <label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"> Додати шар кисло-солодкого черешневого конфі (<span id="confitPrice"></span>)</label>`,
   `<button id="addIney" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`)
  + DES.map(d=>card(d[4],d[1],d[2],d[3]+" грн","",addBtn("des-"+d[0],d[1],d[3],d[4]))).join("");
-$("#addIney").onclick=()=>{const c=$("#confit").checked;
- add("iney"+(c?"-c":""),"Торт «Іній» 1 кг"+(c?" + черешневе конфі":""),c?900:850,"iney.jpg")};
+function ineyUpd(){const w=$("#ineyW").value;
+ $("#ineyPrice").textContent=PRICE.iney[w]+(w==="kg"?" грн/кг":" грн / 100 г");
+ $("#confitPrice").textContent="+"+PRICE.confit[w]+" грн"}
+$("#ineyW").onchange=ineyUpd;ineyUpd();
+$("#addIney").onclick=()=>{const w=$("#ineyW").value,c=$("#confit").checked;
+ add("iney-"+w+(c?"-c":""),"Торт «Іній» "+(w==="kg"?"1 кг":"шматочок 100 г")+(c?" + черешневе конфі":""),PRICE.iney[w]+(c?PRICE.confit[w]:0),"iney.jpg")};
 
-/* ===== Конструктор ===== */
+ /* ===== Конструктор ===== */
+/* ===== Конструктор: [назва, ціна шару за 1 кг] ===== */
+const B={
+ b1:[["Ванільний бісквіт",440],["Шоколадний",460],["Фісташковий",590],["Червоний оксамит",440]],
+ b2:[["Класичний крем-чиз на вершках",300],["Шоколадний ганаш",480],["Йогуртовий крем",220]],
+ b3:[["Солона карамель з арахісом (Снікерс)",160],["Ягідне конфі",150],["Манго-маракуя",250]]
+};
 const sel={b1:0,b2:0,b3:0};
+const cakeSum=()=>["b1","b2","b3"].reduce((s,k)=>s+B[k][sel[k]][1],0);
+
 function drawBuilder(){
- for(const k in B)$("#"+k).innerHTML=B[k].map((t,i)=>`<button data-k="${k}" data-i="${i}" class="opt ${sel[k]==i?"sel":""} rounded-2xl p-3 text-sm font-semibold text-left">${t}</button>`).join("");
- $("#summary").textContent=["b1","b2","b3"].map(k=>B[k][sel[k]]).join(" · ");
+ for(const k in B)$("#"+k).innerHTML=B[k].map((o,i)=>`<button data-k="${k}" data-i="${i}" class="opt ${sel[k]==i?"sel":""} rounded-2xl p-3 text-sm font-semibold text-left">${o[0]}<span class="block text-xs font-normal text-[#5B7055]">+${o[1]} грн</span></button>`).join("");
+ $("#summary").textContent=["b1","b2","b3"].map(k=>B[k][sel[k]][0]).join(" · ");
+ $("#cakePrice").textContent=cakeSum()+" грн/кг";
 }
+$("#addCake").onclick=()=>{const t=["b1","b2","b3"].map(k=>B[k][sel[k]][0]);
+ add("cake-"+t.join("|"),"Торт 1 кг: "+t.join(" / "),cakeSum(),"images/cake-builder.jpg")};
+drawBuilder();
+
 document.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){sel[o.dataset.k]=+o.dataset.i;drawBuilder()}
  const a=e.target.closest("[data-add]");if(a)add(a.dataset.add,a.dataset.name,+a.dataset.price,a.dataset.img)});
-$("#addCake").onclick=()=>{const t=["b1","b2","b3"].map(k=>B[k][sel[k]]);
- add("cake-"+t.join("|"),"Торт 1 кг: "+t.join(" / "),800,"cake-builder.jpg")};
-drawBuilder();
+document.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){sel[o.dataset.k]=+o.dataset.i;drawBuilder()}
+ const a=e.target.closest("[data-add]");if(a)add(a.dataset.add,a.dataset.name,+a.dataset.price,a.dataset.img)});
+
 
 /* ===== Кошик ===== */
 function add(id,name,price,img){cart[id]=cart[id]||{name,price,img,qty:0};cart[id].qty++;draw();openC(true)}
