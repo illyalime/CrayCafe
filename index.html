@@ -22,6 +22,14 @@
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* для тих, хто вимкнув анімації в системі, стрічка гортається вручну */
 @media (prefers-reduced-motion:reduce){.marquee{overflow-x:auto}.marquee-track{animation:none}}
+
+/* ===== Кавове меню ===== */
+.cm{display:flex;align-items:baseline;gap:8px;padding:9px 0}
+.cm span{font-weight:600}
+.cm small{font-weight:400;color:#22201D99;margin-left:4px}
+.cm i{flex:1;border-bottom:2px dotted #7D9B7666;transform:translateY(-4px)}
+.cm b{color:#C88A42;white-space:nowrap}
+ 
 </style>
 </head>
 <body>
@@ -39,6 +47,7 @@
    <a class="hover:text-[#C88A42] transition-all duration-300" href="#macarons">Макарунси</a>
    <a class="hover:text-[#C88A42] transition-all duration-300" href="#builder">Конструктор</a>
    <a class="hover:text-[#C88A42] transition-all duration-300" href="#plyatsky">Пляцки</a>
+   <a class="hover:text-[#C88A42] transition-all duration-300" href="#coffee">Кава</a>
    <a class="hover:text-[#C88A42] transition-all duration-300" href="#contacts">Контакти</a>
   </nav>
   <button id="openCart" aria-label="Кошик" class="relative w-12 h-12 rounded-full bg-[#263D2F] text-white flex items-center justify-center hover:bg-[#5B7055] transition-all duration-300 shadow-md">
@@ -48,7 +57,7 @@
  </div>
  <!-- Мобільне меню -->
  <nav class="md:hidden flex gap-4 overflow-x-auto px-4 pb-3 text-sm font-semibold text-[#263D2F] whitespace-nowrap">
-  <a href="#about">Про нас</a><a href="#macarons">Макарунси</a><a href="#builder">Конструктор</a><a href="#plyatsky">Пляцки</a><a href="#contacts">Контакти</a>
+  <a href="#about">Про нас</a><a href="#macarons">Макарунси</a><a href="#builder">Конструктор</a><a href="#plyatsky">Пляцки</a><a href="#coffee">Кава</a><a href="#contacts">Контакти</a>
  </nav>
 </header>
 
@@ -122,6 +131,47 @@
  <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] text-center">Фірмові торти та галицькі пляцки</h2>
  <div id="desGrid" class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 </section>
+
+ <div class="orn"></div>
+
+<!-- ===== КАВОВЕ МЕНЮ ===== -->
+<section id="coffee" class="max-w-6xl mx-auto px-4 py-16">
+ <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] text-center">Кава та напої</h2>
+ <p class="text-center mt-2 text-[#22201D]/70">Свіжа кава до ваших десертів</p>
+
+ <div class="mt-10 grid md:grid-cols-2 gap-6">
+  <!-- Кава -->
+  <div class="bg-white rounded-3xl shadow-sm border border-[#7D9B76]/15 p-6 md:p-8">
+   <h3 class="text-xl font-bold text-[#5B7055] mb-3">Кава</h3>
+   <div class="cm"><span>Еспресо<small>40 мл</small></span><i></i><b>65 грн</b></div>
+   <div class="cm"><span>Американо<small>200 мл</small></span><i></i><b>70 грн</b></div>
+   <div class="cm"><span>Капучино<small>180 мл</small></span><i></i><b>85 грн</b></div>
+   <div class="cm"><span>Лате<small>250 мл</small></span><i></i><b>95 грн</b></div>
+   <div class="cm"><span>Флет вайт<small>160 мл</small></span><i></i><b>95 грн</b></div>
+   <div class="cm"><span>Раф (вершки, ванільний сироп)<small>250 мл</small></span><i></i><b>120 грн</b></div>
+   <div class="cm"><span>Мокко<small>250 мл</small></span><i></i><b>110 грн</b></div>
+   <div class="cm"><span>Айс-лате<small>300 мл</small></span><i></i><b>115 грн</b></div>
+   <div class="cm"><span>Еспресо-тонік<small>300 мл</small></span><i></i><b>130 грн</b></div>
+  </div>
+
+  <!-- Інші напої + добавки -->
+  <div class="space-y-6">
+   <div class="bg-white rounded-3xl shadow-sm border border-[#7D9B76]/15 p-6 md:p-8">
+    <h3 class="text-xl font-bold text-[#5B7055] mb-3">Не лише кава</h3>
+    <div class="cm"><span>Матча-лате<small>250 мл</small></span><i></i><b>115 грн</b></div>
+    <div class="cm"><span>Гарячий шоколад<small>250 мл</small></span><i></i><b>100 грн</b></div>
+    <div class="cm"><span>Чай (чайник)<small>400 мл</small></span><i></i><b>80 грн</b></div>
+    <div class="cm"><span>Домашній лимонад<small>300 мл</small></span><i></i><b>85 грн</b></div>
+   </div>
+   <div class="bg-[#263D2F] text-white rounded-3xl shadow-sm p-6 md:p-8">
+    <h3 class="text-xl font-bold mb-3">Добавки</h3>
+    <div class="flex justify-between py-1"><span>Рослинне молоко</span><b class="text-[#C88A42]">+30 грн</b></div>
+    <div class="flex justify-between py-1"><span>Сироп</span><b class="text-[#C88A42]">+15 грн</b></div>
+   </div>
+  </div>
+ </div>
+</section>
+ 
 </main>
 
 <!-- ===== ВІДГУКИ ===== -->
