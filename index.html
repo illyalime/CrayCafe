@@ -244,13 +244,50 @@ const MAC=[
 ["krym","Крим","Лаванда і мускат","Ліловий корж; лаванда з мускатним виноградом"]
 ];
 /* Фірмові: [id, назва, опис, ціна, фото] */
+
+/* ===== ФІРМОВІ ТОРТИ ТА ПЛЯЦКИ =====
+   opts: [["підпис ваги", ціна], ...]  — якщо варіант один, список не показується
+   extra: необов'язкова доплата; price: [доплата для 1-го варіанту, для 2-го ...] */
 const DES=[
-["medovyk","Класичний медовик","Ароматні медові коржі, просочені ніжним сметанним кремом, утворюють неймовірно м'яку та соковиту текстуру. Натуральний мед дарує теплий карамельний післясмак, а легка кислинка крему робить кожен шматочок особливо ніжним.",75,"medovyk.jpg"],
-["chervonybarhat","Червоний оксамит «Вишнева спокуса»","Ніжні оксамитові бісквіти з делікатними нотками какао, повітряний вершково-сирний крем із білим шоколадом, соковите вишневе конфі та витончений хрусткий прошарок із мигдалю. Гармонія ніжності, ягідної кислинки та шоколадної солодкості в кожному шматочку.",80,"chervonybarhat.jpg"],
-["syrnyk","Класичний львівський сирник","Справжня львівська класика з ніжною сирною текстурою та насиченою шоколадною глазур'ю. Золотиста скоринка, вершковий смак і тонкий аромат ванілі перетворюють кожен шматочок на особливу насолоду.",80,"syrnyk.jpg"],
-["makovianyk","Маков'яник","Щедра макова начинка, огорнута ніжним пісочно-дріжджовим тістом, створює насичений смак традиційної української випічки. Ароматний мак, делікатна солодкість і м'яка текстура дарують відчуття домашнього затишку в кожному шматочку.",70,"makovianyk.jpg"],
-["spartak","Спартак","Тонкі шоколадно-медові коржі, щедро просочені ніжним заварним сметанковим кремом. Насичені нотки какао, медова солодкість і легка сметанкова кислинка створюють ідеальний баланс смаку, перед яким важко встояти.",75,"spartak.jpg"]
+ {id:"iney",name:"Торт «Іній» (Запоріжжя)",desc:"Класичний ванільний бісквіт, хрустке безе, масляно-заварний крем.",img:"iney.jpg",
+  opts:[["1 кг",950],["Шматочок 125 г",120]],
+  extra:{label:"Додати шар кисло-солодкого черешневого конфі",short:"черешневе конфі",price:[120,25]}},
+ {id:"syrnyk",name:"Класичний львівський сирник",desc:"Справжня львівська класика з ніжною сирною текстурою та насиченою шоколадною глазур'ю.",img:"syrnyk.jpg",
+  opts:[["1 кг",850],["Шматочок 125 г",95]},
+ {id:"makovianyk",name:"Маков'яник",desc:"Щедра макова начинка, огорнута ніжним пісочно-дріжджовим тістом, створює насичений смак традиційної української випічки.",img:"makovianyk.jpg",
+  opts:[["1 кг",800],["Шматочок 125 г",85]},
+ {id:"spartak",name:"Спартак",desc:"Тонкі шоколадно-медові коржі, щедро просочені ніжним заварним сметанковим кремом.",img:"spartak.jpg",
+  opts:[["1 кг",850],["Шматочок 125 г",90]},
+ {id:"medovyk",name:"Класичний медовик",desc:"Ароматні медові коржі, просочені ніжним сметанним кремом, утворюють неймовірно м'яку та соковиту текстуру.",img:"medovyk.jpg",
+  opts:[["1 кг",750],["Шматочок 125 г",80]}
+ {id:"chervonybarhat",name:"Червоний оксамит «Вишнева спокуса»",desc:"Ніжні оксамитові бісквіти з делікатними нотками какао, повітряний вершково-сирний крем із білим шоколадом, соковите вишневе конфі та витончений хрусткий прошарок із мигдалю.",img:"chervonybarhat.jpg",
+  opts:[["1 кг",1000],["Шматочок 125 г",130]}
 ];
+
+const desEl=$("#desGrid");
+desEl.innerHTML=DES.map((d,i)=>`<article data-card="${i}" class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
+ <img src="${d.img}" alt="${d.name}" loading="lazy" class="w-full aspect-[4/3] object-cover" ${ph(d.name,"C88A42")}>
+ <div class="p-5 flex-1 flex flex-col gap-2"><h3 class="text-lg font-bold">${d.name}</h3>
+ <p class="text-sm text-[#22201D]/70 flex-1">${d.desc}</p>
+ ${d.opts.length>1?`<select class="dsel text-sm p-2 rounded-xl border border-[#7D9B76]/40 bg-white">${d.opts.map((o,j)=>`<option value="${j}">${o[0]}</option>`).join("")}</select>`:""}
+ ${d.extra?`<label class="text-sm flex gap-2 items-start"><input type="checkbox" class="dex mt-1 accent-[#263D2F]"><span>${d.extra.label} (<span class="dexp"></span>)</span></label>`:""}
+ <div class="flex items-center justify-between mt-2"><span class="dprice font-bold text-[#C88A42]"></span>
+ <button class="dbuy px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button></div></div></article>`).join("");
+
+/* Поточний вибір картки: варіант ваги, доплата, підсумкова ціна */
+function dState(el){const d=DES[el.dataset.card],s=el.querySelector(".dsel"),j=s?+s.value:0,x=el.querySelector(".dex"),on=!!(x&&x.checked);
+ const ex=d.extra?(d.extra.price[j]??d.extra.price[0]):0;
+ return {d,j,on,ex,price:d.opts[j][1]+(on?ex:0)}}
+function dDraw(el){const s=dState(el);
+ el.querySelector(".dprice").textContent=s.price+" грн";
+ const p=el.querySelector(".dexp");if(p)p.textContent="+"+s.ex+" грн"}
+desEl.querySelectorAll("[data-card]").forEach(dDraw);
+desEl.addEventListener("change",e=>{const el=e.target.closest("[data-card]");if(el)dDraw(el)});
+desEl.addEventListener("click",e=>{const b=e.target.closest(".dbuy");if(!b)return;
+ const s=dState(b.closest("[data-card]")),d=s.d;
+ add(d.id+"-"+s.j+(s.on?"-x":""),
+  d.name+(d.opts.length>1?" · "+d.opts[s.j][0]:"")+(s.on?" + "+d.extra.short:""),
+  s.price,d.img)});
 
 
  /* ===== ЦІНИ (змінюйте тут) ===== */
@@ -287,19 +324,7 @@ const card=(img,name,desc,price,extra,btn)=>`<article class="bg-white rounded-3x
  <p class="text-sm text-[#22201D]/70 flex-1">${desc}</p>${extra}
  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${price}</span>${btn}</div></div></article>`;
 const addBtn=(id,name,price,img)=>`<button data-add="${id}" data-name="${esc(name)}" data-price="${price}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`;
-$("#desGrid").innerHTML=
- card("iney.jpg","Торт «Іній» (Запоріжжя)","Класичний ванільний бісквіт, хрустке безе, масляно-заварний крем.",'<span id="ineyPrice"></span>',
-  `<select id="ineyW" class="text-sm p-2 rounded-xl border border-[#7D9B76]/40 bg-white"><option value="kg">1 кг</option><option value="slice">Шматочок 125 г</option></select>
-  <label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"><span>Додати шар кисло-солодкого черешневого конфі (<span id="confitPrice"></span>)</span></label>`,
-  `<button id="addIney" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`)
- + DES.map(d=>card(d[4],d[1],d[2],d[3]+" грн","",addBtn("des-"+d[0],d[1],d[3],d[4]))).join("");
 
-function ineyUpd(){const w=$("#ineyW").value;
- $("#ineyPrice").textContent=PRICE.iney[w]+(w==="kg"?" грн/кг":" грн / 125 г");
- $("#confitPrice").textContent="+"+PRICE.confit[w]+" грн"}
-$("#ineyW").onchange=ineyUpd;ineyUpd();
-$("#addIney").onclick=()=>{const w=$("#ineyW").value,c=$("#confit").checked;
- add("iney-"+w+(c?"-c":""),"Торт «Іній» "+(w==="kg"?"1 кг":"шматочок 125 г")+(c?" + черешневе конфі":""),PRICE.iney[w]+(c?PRICE.confit[w]:0),"iney.jpg")};
 
  /* ===== Конструктор ===== */
 /* ===== Конструктор: [назва, ціна шару за 1 кг] ===== */
