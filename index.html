@@ -306,6 +306,22 @@ const PRICE={
 
 /* ===== Макарунси ===== */
 $("#macGrid").innerHTML=MAC.map(m=>{const n=m[2],id="mac-"+m[0],img=`${m[0]}.jpg`;
+/* ===== БОКС З УСІМА 25 МАКАРУНСАМИ ===== */
+const BOX={name:"Бокс «25 областей»",desc:"Усі 25 регіональних макарунсів в одній подарунковій коробці: від Вінницької до Криму.",img:"macaron-box.jpg",price:1975};
+
+$("#macGrid").insertAdjacentHTML("beforeend",`<article class="sm:col-span-2 lg:col-span-3 bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden grid md:grid-cols-2">
+ <img src="${BOX.img}" alt="${BOX.name}" loading="lazy" class="w-full h-full min-h-56 object-cover" ${ph(BOX.name)}>
+ <div class="p-6 flex flex-col gap-3 justify-center">
+  <span class="self-start px-3 py-1 rounded-full bg-[#C88A42]/20 text-[#263D2F] text-xs font-semibold">Подарунковий набір · 25 шт</span>
+  <h3 class="text-2xl font-bold">${BOX.name}</h3>
+  <p class="text-sm text-[#22201D]/70">${BOX.desc}</p>
+  <div class="flex items-center justify-between mt-2">
+   <span class="font-bold text-xl text-[#C88A42]">${BOX.price} грн</span>
+   <button id="boxBuy" class="px-5 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>
+  </div>
+ </div></article>`);
+
+$("#boxBuy").onclick=()=>add("macbox-25",BOX.name,BOX.price,BOX.img);
  return `<article class="bg-white rounded-3xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col">
  <!-- ФОТО: ${img} -->
  <img src="${img}" alt="${n}" loading="lazy" class="w-full aspect-[4/3] object-cover" ${ph(n)}>
