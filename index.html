@@ -138,39 +138,9 @@
 <section id="coffee" class="max-w-6xl mx-auto px-4 py-16">
  <h2 class="text-3xl md:text-4xl font-bold text-[#263D2F] text-center">Кава та напої</h2>
  <p class="text-center mt-2 text-[#22201D]/70">Свіжа кава до ваших десертів</p>
-
- <div class="mt-10 grid md:grid-cols-2 gap-6">
-  <!-- Кава -->
-  <div class="bg-white rounded-3xl shadow-sm border border-[#7D9B76]/15 p-6 md:p-8">
-   <h3 class="text-xl font-bold text-[#5B7055] mb-3">Кава</h3>
-   <div class="cm"><span>Еспресо<small>40 мл</small></span><i></i><b>65 грн</b></div>
-   <div class="cm"><span>Американо<small>200 мл</small></span><i></i><b>70 грн</b></div>
-   <div class="cm"><span>Капучино<small>180 мл</small></span><i></i><b>85 грн</b></div>
-   <div class="cm"><span>Лате<small>250 мл</small></span><i></i><b>95 грн</b></div>
-   <div class="cm"><span>Флет вайт<small>160 мл</small></span><i></i><b>95 грн</b></div>
-   <div class="cm"><span>Раф (вершки, ванільний сироп)<small>250 мл</small></span><i></i><b>120 грн</b></div>
-   <div class="cm"><span>Мокко<small>250 мл</small></span><i></i><b>110 грн</b></div>
-   <div class="cm"><span>Айс-лате<small>300 мл</small></span><i></i><b>115 грн</b></div>
-   <div class="cm"><span>Еспресо-тонік<small>300 мл</small></span><i></i><b>130 грн</b></div>
-  </div>
-
-  <!-- Інші напої + добавки -->
-  <div class="space-y-6">
-   <div class="bg-white rounded-3xl shadow-sm border border-[#7D9B76]/15 p-6 md:p-8">
-    <h3 class="text-xl font-bold text-[#5B7055] mb-3">Не лише кава</h3>
-    <div class="cm"><span>Матча-лате<small>250 мл</small></span><i></i><b>115 грн</b></div>
-    <div class="cm"><span>Гарячий шоколад<small>250 мл</small></span><i></i><b>100 грн</b></div>
-    <div class="cm"><span>Чай (чайник)<small>400 мл</small></span><i></i><b>80 грн</b></div>
-    <div class="cm"><span>Домашній лимонад<small>300 мл</small></span><i></i><b>85 грн</b></div>
-   </div>
-   <div class="bg-[#263D2F] text-white rounded-3xl shadow-sm p-6 md:p-8">
-    <h3 class="text-xl font-bold mb-3">Добавки</h3>
-    <div class="flex justify-between py-1"><span>Рослинне молоко</span><b class="text-[#C88A42]">+30 грн</b></div>
-    <div class="flex justify-between py-1"><span>Сироп</span><b class="text-[#C88A42]">+15 грн</b></div>
-   </div>
-  </div>
- </div>
+ <div id="coffeeGrid" class="mt-10 grid md:grid-cols-2 gap-6"></div>
 </section>
+
  
 </main>
 
@@ -512,6 +482,45 @@ $("#rvForm").onsubmit=e=>{e.preventDefault();
  e.target.reset();rvOpen(false);
  document.getElementById("reviews").scrollIntoView({behavior:"smooth"});
  toast("Дякуємо за ваш відгук! Він уже з'явився у стрічці")};
+
+/* ===== КАВОВЕ МЕНЮ: [назва, обʼєм, ціна, чи є добавки (1/0)] ===== */
+const ADD={milk:["Рослинне молоко",30],syr:["Сироп",15]};   // ціни добавок
+const COFFEE=[
+ {t:"Кава",items:[
+  ["Еспресо","40 мл",65,0],["Американо","200 мл",70,1],["Капучино","180 мл",85,1],
+  ["Лате","250 мл",95,1],["Флет вайт","160 мл",95,1],["Раф (вершки, ванільний сироп)","250 мл",120,1],
+  ["Мокко","250 мл",110,1],["Айс-лате","300 мл",115,1],["Еспресо-тонік","300 мл",130,0]]},
+ {t:"Не лише кава",items:[
+  ["Матча-лате","250 мл",115,1],["Гарячий шоколад","250 мл",100,1],
+  ["Чай (чайник)","400 мл",80,0],["Домашній лимонад","300 мл",85,0]]}
+];
+const CF=[]; // плоский список напоїв
+const cfRow=it=>{const k=CF.push({n:it[0],v:it[1],p:it[2]})-1;
+ return `<div data-k="${k}" class="border-b border-[#7D9B76]/15 last:border-0 py-2">
+  <div class="cm" style="padding:4px 0"><span>${it[0]}<small>${it[1]}</small></span><i></i><b class="cprice">${it[2]} грн</b>
+   <button class="cbuy w-8 h-8 rounded-full bg-[#263D2F] text-white font-bold hover:bg-[#5B7055] transition-all duration-300" aria-label="В кошик">+</button></div>
+  ${it[3]?`<div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[#22201D]/70">
+   <label class="flex gap-1 items-center"><input type="checkbox" class="cmilk accent-[#263D2F]"> ${ADD.milk[0]} +${ADD.milk[1]} грн</label>
+   <label class="flex gap-1 items-center"><input type="checkbox" class="csyr accent-[#263D2F]"> ${ADD.syr[0]} +${ADD.syr[1]} грн</label></div>`:""}
+ </div>`};
+const cfCard=g=>`<div class="bg-white rounded-3xl shadow-sm border border-[#7D9B76]/15 p-6 md:p-8"><h3 class="text-xl font-bold text-[#5B7055] mb-2">${g.t}</h3>${g.items.map(cfRow).join("")}</div>`;
+$("#coffeeGrid").innerHTML=cfCard(COFFEE[0])+`<div class="space-y-6">${cfCard(COFFEE[1])}
+ <div class="bg-[#263D2F] text-white rounded-3xl shadow-sm p-6 md:p-8"><h3 class="text-xl font-bold mb-3">Добавки до кави</h3>
+ <div class="flex justify-between py-1"><span>${ADD.milk[0]}</span><b class="text-[#C88A42]">+${ADD.milk[1]} грн</b></div>
+ <div class="flex justify-between py-1"><span>${ADD.syr[0]}</span><b class="text-[#C88A42]">+${ADD.syr[1]} грн</b></div></div></div>`;
+
+/* Підсумок рядка: ціна напою + обрані добавки */
+function cfCalc(row){const it=CF[+row.dataset.k],m=row.querySelector(".cmilk")?.checked,s=row.querySelector(".csyr")?.checked;
+ const adds=[m&&ADD.milk,s&&ADD.syr].filter(Boolean);
+ return {it,m:!!m,s:!!s,price:it.p+adds.reduce((a,x)=>a+x[1],0),adds}}
+const cfEl=$("#coffeeGrid");
+cfEl.addEventListener("change",e=>{const r=e.target.closest("[data-k]");if(r)r.querySelector(".cprice").textContent=cfCalc(r).price+" грн"});
+cfEl.addEventListener("click",e=>{if(!e.target.closest(".cbuy"))return;
+ const r=e.target.closest("[data-k]"),s=cfCalc(r);
+ add("cf-"+s.it.n+(s.m?"-m":"")+(s.s?"-s":""),
+  s.it.n+" "+s.it.v+(s.adds.length?" + "+s.adds.map(a=>a[0].toLowerCase()).join(" + "):""),
+  s.price,"coffee.jpg")});
+ 
 </script>
 </body>
 </html>
