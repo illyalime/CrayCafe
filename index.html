@@ -288,11 +288,12 @@ const card=(img,name,desc,price,extra,btn)=>`<article class="bg-white rounded-3x
  <div class="flex items-center justify-between mt-2"><span class="font-bold text-[#C88A42]">${price}</span>${btn}</div></div></article>`;
 const addBtn=(id,name,price,img)=>`<button data-add="${id}" data-name="${esc(name)}" data-price="${price}" data-img="${img}" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`;
 $("#desGrid").innerHTML=
- card("iney.jpg","Торт «Іній» (Запоріжжя)","Ніжний ванільний бісквіт, повітряне хрустке безе та оксамитовий масляно-заварний крем створюють неповторну гармонію смаків. Кожен шматочок поєднує делікатну солодкість, вершкову ніжність і приємний хрускіт, що тане в роті.",'<span id="ineyPrice"></span>',
+ card("images/iney.jpg","Торт «Іній» (Запоріжжя)","Класичний ванільний бісквіт, хрустке безе, масляно-заварний крем.",'<span id="ineyPrice"></span>',
   `<select id="ineyW" class="text-sm p-2 rounded-xl border border-[#7D9B76]/40 bg-white"><option value="kg">1 кг</option><option value="slice">Шматочок 125 г</option></select>
-  <label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"><span>Додати шар кисло-солодкого черешневого конфі (<span id="confitPrice"></span>)</span></label>,
+  <label class="text-sm flex gap-2 items-start"><input id="confit" type="checkbox" class="mt-1 accent-[#263D2F]"><span>Додати шар кисло-солодкого черешневого конфі (<span id="confitPrice"></span>)</span></label>`,
   `<button id="addIney" class="px-4 py-2 rounded-full bg-[#263D2F] text-white text-sm font-semibold hover:bg-[#5B7055] transition-all duration-300">В кошик</button>`)
  + DES.map(d=>card(d[4],d[1],d[2],d[3]+" грн","",addBtn("des-"+d[0],d[1],d[3],d[4]))).join("");
+
 function ineyUpd(){const w=$("#ineyW").value;
  $("#ineyPrice").textContent=PRICE.iney[w]+(w==="kg"?" грн/кг":" грн / 125 г");
  $("#confitPrice").textContent="+"+PRICE.confit[w]+" грн"}
