@@ -381,7 +381,7 @@ function drawBuilder(){
  $("#cakePrice").textContent=cakeSum()+" грн/кг";
 }
 $("#addCake").onclick=()=>{const t=["b1","b2","b3"].map(k=>B[k][sel[k]][0]);
- add("cake-"+t.join("|"),"Торт 1 кг: "+t.join(" / "),cakeSum(),"images/cake-builder.jpg")};
+ add("cake-"+t.join("|"),"Торт 1 кг: "+t.join(" / "),cakeSum(),"cake-builder.jpg")};
 drawBuilder();
 
 document.addEventListener("click",e=>{const o=e.target.closest(".opt");if(o){sel[o.dataset.k]=+o.dataset.i;drawBuilder()}
